@@ -16,6 +16,7 @@ import com.azat_sabirov.shoppinglist.entities.ShoppingListNames
     ShoppingListNames::class], version = 1
 )
 abstract class MainDataBase : RoomDatabase() {
+    abstract fun getDao(): Dao
 
     companion object {
         @Volatile
