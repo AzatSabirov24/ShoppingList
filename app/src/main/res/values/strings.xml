@@ -4,4 +4,6 @@
     <string name="notes_bottom_menu">Notes</string>
     <string name="shop_list_bottom_menu">Shop List</string>
     <string name="new_note_bottom_menu">New Note</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
