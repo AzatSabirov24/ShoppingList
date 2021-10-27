@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Public/ShoppingList/app/src/main/res/layout/activity_main.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Public/ShoppingList/app/src/main/res/layout/activity_new_note.xml" value="0.22" />
         <entry key="..\:/Users/Public/ShoppingList/app/src/main/res/layout/note_list_item.xml" value="0.25" />
         <entry key="..\:/Users/Public/ShoppingList/app/src/main/res/menu/bottom_menu.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Public/ShoppingList/app/src/main/res/menu/new_note_menu.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

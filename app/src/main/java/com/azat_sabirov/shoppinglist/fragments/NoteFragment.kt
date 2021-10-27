@@ -1,5 +1,6 @@
 package com.azat_sabirov.shoppinglist.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.activities.MainApp
+import com.azat_sabirov.shoppinglist.activities.NewNoteActivity
 import com.azat_sabirov.shoppinglist.databinding.FragmentNoteBinding
 import com.azat_sabirov.shoppinglist.db.MainViewModel
 
@@ -18,7 +20,7 @@ class NoteFragment : BaseFragment() {
     }
 
     override fun onClickNew() {
-
+        startActivity(Intent(activity, NewNoteActivity::class.java))
     }
 
     override fun onCreateView(
