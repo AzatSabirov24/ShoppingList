@@ -1,12 +1,13 @@
 package com.azat_sabirov.shoppinglist.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.databinding.ActivityNewNoteBinding
+import com.azat_sabirov.shoppinglist.fragments.NoteFragment
 
 class NewNoteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewNoteBinding
@@ -26,7 +27,7 @@ class NewNoteActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.save -> {
-                finish()
+                setMainResult()
             }
             android.R.id.home -> {
                 finish()
@@ -40,4 +41,12 @@ class NewNoteActivity : AppCompatActivity() {
         ab?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun setMainResult() {
+        val i = Intent().apply {
+            putExtra(NoteFragment.TITLE_KEY, binding.titleEt.text.toString())
+            putExtra(NoteFragment.DESC_KEY, binding.descriptionEt.text.toString())
+        }
+        setResult(RESULT_OK, i)
+        finish()
+    }
 }
