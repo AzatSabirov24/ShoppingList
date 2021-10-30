@@ -18,7 +18,7 @@ import com.azat_sabirov.shoppinglist.db.MainViewModel
 import com.azat_sabirov.shoppinglist.db.NoteAdapter
 import com.azat_sabirov.shoppinglist.entities.NoteItem
 
-class NoteFragment : BaseFragment() {
+class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     private lateinit var binding: FragmentNoteBinding
     private lateinit var editLauncher: ActivityResultLauncher<Intent>
     private lateinit var adapter: NoteAdapter
@@ -51,7 +51,7 @@ class NoteFragment : BaseFragment() {
 
     private fun initRcView() = with(binding) {
         noteRcView.layoutManager = LinearLayoutManager(activity)
-        adapter = NoteAdapter()
+        adapter = NoteAdapter(this@NoteFragment)
         noteRcView.adapter = adapter
     }
 
@@ -75,5 +75,9 @@ class NoteFragment : BaseFragment() {
         const val DESC_KEY = "desk_key"
         @JvmStatic
         fun newInstance() = NoteFragment()
+    }
+
+    override fun deleteItem(id: Int) {
+        mainViewModel.deleteNote(id)
     }
 }
