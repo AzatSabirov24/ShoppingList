@@ -12,7 +12,7 @@ import com.azat_sabirov.shoppinglist.entities.NoteItem
 
 class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
 
-     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder.create(parent)
     }
 
@@ -22,6 +22,7 @@ class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator
 
     class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = NoteListItemBinding.bind(view)
+
         fun setData(note: NoteItem) = with(binding) {
             titleTv.text = note.title
             descriptionTv.text = note.content
