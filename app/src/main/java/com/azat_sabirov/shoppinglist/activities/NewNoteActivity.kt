@@ -14,17 +14,32 @@ import java.util.*
 
 class NewNoteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewNoteBinding
+    private var note: NoteItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
         actionBarSettings()
+        getNote()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.new_note_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun getNote() {
+        val sNote = intent.getSerializableExtra(NoteFragment.NEW_NOTE_KEY)
+        sNote?.let {
+            note = sNote as NoteItem
+            fillNote()
+        }
+    }
+
+    private fun fillNote() = with(binding) {
+            titleEt.setText(note?.title.toString())
+            descriptionEt.setText(note?.content.toString())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,9 +60,17 @@ class NewNoteActivity : AppCompatActivity() {
     }
 
     private fun setMainResult() {
-        val i = Intent()
-        i.putExtra(NoteFragment.NEW_NOTE_KEY, createNewNote())
-        i.putExtra(NoteFragment.DESC_KEY, binding.descriptionEt.text.toString())
+        var editState = "new"
+        val tempNote: NoteItem? = if (note == null) {
+            createNewNote()
+        } else {
+            editState = "update"
+            updateNote()
+        }
+        val i = Intent().apply {
+            putExtra(NoteFragment.NEW_NOTE_KEY, tempNote)
+            putExtra(NoteFragment.EDIT_STATE_KEY, editState)
+        }
         setResult(RESULT_OK, i)
         finish()
     }
@@ -60,6 +83,10 @@ class NewNoteActivity : AppCompatActivity() {
             getCurrentTime(),
             ""
         )
+    }
+
+    private fun updateNote(): NoteItem? = with(binding) {
+        return note?.copy(title = titleEt.text.toString(), content = descriptionEt.text.toString())
     }
 
     private fun getCurrentTime(): String {

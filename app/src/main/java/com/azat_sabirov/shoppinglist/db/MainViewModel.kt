@@ -16,6 +16,10 @@ class MainViewModel(dataBase: MainDataBase) : ViewModel() {
         dao.deleteNote(id)
     }
 
+    fun updateNote(note: NoteItem) = viewModelScope.launch {
+        dao.updateNote(note)
+    }
+
     class MainViewModelFactory(val dataBase: MainDataBase) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
