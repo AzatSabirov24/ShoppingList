@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/save"
-        android:title="@string/new_note_menu_save_title"
         android:icon="@drawable/ic_save"
-        app:showAsAction="ifRoom"/>
+        android:orderInCategory="20"
+        android:title="@string/new_note_menu_save_title"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/bold"
+        android:icon="@drawable/ic_bold"
+        android:orderInCategory="10"
+        android:title="@string/bold_style"
+        app:showAsAction="ifRoom" />
 
 </menu>

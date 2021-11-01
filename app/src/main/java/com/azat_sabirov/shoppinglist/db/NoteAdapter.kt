@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.azat_sabirov.shoppinglist.HtmlManager
 import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.databinding.NoteListItemBinding
 import com.azat_sabirov.shoppinglist.entities.NoteItem
@@ -25,7 +26,7 @@ class NoteAdapter(private val listener: Listener) : ListAdapter<NoteItem, NoteAd
 
         fun setData(note: NoteItem, listener: Listener) = with(binding) {
             titleTv.text = note.title
-            descriptionTv.text = note.content
+            descriptionTv.text = HtmlManager.getFromHtml(note.content.trim())
             timeTv.text = note.time
 
             deleteIb.setOnClickListener {
@@ -59,7 +60,6 @@ class NoteAdapter(private val listener: Listener) : ListAdapter<NoteItem, NoteAd
 
     interface Listener{
         fun deleteItem(id: Int)
-
         fun onClickItem(note: NoteItem)
     }
 }

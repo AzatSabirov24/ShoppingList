@@ -9,4 +9,5 @@
     <string name="title_hint">Title</string>
     <string name="description_hint">Description</string>
     <string name="new_note_menu_save_title">Save</string>
+    <string name="bold_style">Bold style</string>
 </resources>

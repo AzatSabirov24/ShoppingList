@@ -1,10 +1,14 @@
 package com.azat_sabirov.shoppinglist.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.azat_sabirov.shoppinglist.HtmlManager
 import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.databinding.ActivityNewNoteBinding
 import com.azat_sabirov.shoppinglist.entities.NoteItem
@@ -39,7 +43,7 @@ class NewNoteActivity : AppCompatActivity() {
 
     private fun fillNote() = with(binding) {
             titleEt.setText(note?.title.toString())
-            descriptionEt.setText(note?.content.toString())
+            descriptionEt.setText(HtmlManager.getFromHtml(note?.content!!).trim())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -47,11 +51,32 @@ class NewNoteActivity : AppCompatActivity() {
             R.id.save -> {
                 setMainResult()
             }
+            R.id.bold -> {
+                setBoldForSelectedItem()
+            }
             android.R.id.home -> {
                 finish()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBoldForSelectedItem() = with(binding){
+        val startPos = descriptionEt.selectionStart
+        val endPos = descriptionEt.selectionEnd
+
+        val styles = descriptionEt.text.getSpans(startPos, endPos, StyleSpan::class.java)
+        var boldStyle: StyleSpan? = null
+        if (styles.isNotEmpty()){
+            descriptionEt.text.removeSpan(styles[0])
+        } else {
+            boldStyle = StyleSpan(Typeface.BOLD)
+        }
+        descriptionEt.text.apply {
+            setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            trim()
+        }
+        descriptionEt.setSelection(startPos)
     }
 
     private fun actionBarSettings() {
@@ -75,18 +100,19 @@ class NewNoteActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun createNewNote(): NoteItem {
+    private fun createNewNote(): NoteItem  = with(binding){
         return NoteItem(
             null,
-            binding.titleEt.text.toString(),
-            binding.descriptionEt.text.toString(),
+            titleEt.text.toString(),
+            HtmlManager.toHtml(descriptionEt.text),
             getCurrentTime(),
             ""
         )
     }
 
     private fun updateNote(): NoteItem? = with(binding) {
-        return note?.copy(title = titleEt.text.toString(), content = descriptionEt.text.toString())
+        return note?.copy(title = titleEt.text.toString(),
+            content = HtmlManager.toHtml(descriptionEt.text))
     }
 
     private fun getCurrentTime(): String {
