@@ -9,4 +9,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="act_new_note_background_color">#ADF8BC</color>
+
+    <color name="picker_red">#F44336</color>
+    <color name="picker_blue">#3F51B5</color>
+    <color name="picker_green">#16B81D</color>
+    <color name="picker_black">#1E1E1E</color>
+    <color name="picker_yellow">#FFEB3B</color>
+    <color name="picker_orange">#FF9800</color>
 </resources>
