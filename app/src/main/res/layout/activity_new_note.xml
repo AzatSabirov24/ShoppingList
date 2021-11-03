@@ -54,12 +54,14 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/color_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/act_new_note_background_color"
         android:elevation="10dp"
         android:orientation="horizontal"
         android:padding="5dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
