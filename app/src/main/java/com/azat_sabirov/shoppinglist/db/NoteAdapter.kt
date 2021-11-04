@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.azat_sabirov.shoppinglist.HtmlManager
+import com.azat_sabirov.shoppinglist.utils.HtmlManager
 import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.databinding.NoteListItemBinding
 import com.azat_sabirov.shoppinglist.entities.NoteItem

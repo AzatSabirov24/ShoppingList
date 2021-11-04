@@ -1,4 +1,4 @@
-package com.azat_sabirov.shoppinglist
+package com.azat_sabirov.shoppinglist.utils
 
 import android.text.Html
 import android.text.Spanned
