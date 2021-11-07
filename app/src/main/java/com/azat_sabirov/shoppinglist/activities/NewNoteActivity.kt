@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
@@ -12,11 +13,12 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import com.azat_sabirov.shoppinglist.utils.HtmlManager
+import androidx.core.content.ContextCompat
 import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.databinding.ActivityNewNoteBinding
 import com.azat_sabirov.shoppinglist.entities.NoteItem
 import com.azat_sabirov.shoppinglist.fragments.NoteFragment
+import com.azat_sabirov.shoppinglist.utils.HtmlManager
 import com.azat_sabirov.shoppinglist.utils.MyTouchListener
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,7 +34,19 @@ class NewNoteActivity : AppCompatActivity() {
         actionBarSettings()
         getNote()
         init()
+        onClickColorPicker()
+        actionMenuCallback()
     }
+
+    private fun onClickColorPicker() = with(binding) {
+        ibRed.setOnClickListener { setColorForSelectedItem(R.color.picker_red) }
+        ibBlue.setOnClickListener { setColorForSelectedItem(R.color.picker_blue) }
+        ibGreen.setOnClickListener { setColorForSelectedItem(R.color.picker_green) }
+        ibBlack.setOnClickListener { setColorForSelectedItem(R.color.picker_black) }
+        ibYellow.setOnClickListener { setColorForSelectedItem(R.color.picker_yellow) }
+        ibOrange.setOnClickListener { setColorForSelectedItem(R.color.picker_orange) }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.new_note_menu, menu)
@@ -81,6 +95,25 @@ class NewNoteActivity : AppCompatActivity() {
         }
         descriptionEt.text.apply {
             setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            trim()
+        }
+        descriptionEt.setSelection(startPos)
+    }
+
+    private fun setColorForSelectedItem(colorId: Int) = with(binding) {
+        val startPos = descriptionEt.selectionStart
+        val endPos = descriptionEt.selectionEnd
+
+        val styles = descriptionEt.text.getSpans(startPos, endPos, ForegroundColorSpan::class.java)
+        if (styles.isNotEmpty()) descriptionEt.text.removeSpan(styles[0])
+
+        descriptionEt.text.apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(this@NewNoteActivity, colorId)),
+                startPos,
+                endPos,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             trim()
         }
         descriptionEt.setSelection(startPos)
@@ -147,5 +180,30 @@ class NewNoteActivity : AppCompatActivity() {
             override fun onAnimationRepeat(animation: Animation?) {}
         })
         colorPicker.startAnimation(openAnim)
+    }
+
+    private fun actionMenuCallback() {
+        val actionCallback = object : android.view.ActionMode.Callback {
+            override fun onCreateActionMode(mode: android.view.ActionMode?, menu: Menu?): Boolean {
+                menu?.clear()
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: android.view.ActionMode?, menu: Menu?): Boolean {
+                menu?.clear()
+                return true
+            }
+
+            override fun onActionItemClicked(
+                mode: android.view.ActionMode?,
+                item: MenuItem?
+            ): Boolean {
+                return true
+            }
+
+            override fun onDestroyActionMode(mode: android.view.ActionMode?) {
+            }
+        }
+        binding.descriptionEt.customSelectionActionModeCallback = actionCallback
     }
 }
