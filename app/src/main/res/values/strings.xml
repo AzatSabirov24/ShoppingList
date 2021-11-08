@@ -11,4 +11,7 @@
     <string name="new_note_menu_save_title">Save</string>
     <string name="bold_style">Bold style</string>
     <string name="color_picker">Color</string>
+    <string name="new_list_text">New List Name</string>
+    <string name="new_list_btn_text">Create New list</string>
+    <string name="et_new_list_hint">New List</string>
 </resources>

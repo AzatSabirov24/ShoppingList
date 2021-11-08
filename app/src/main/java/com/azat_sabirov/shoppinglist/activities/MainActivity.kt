@@ -5,10 +5,11 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.databinding.ActivityMainBinding
+import com.azat_sabirov.shoppinglist.dialogs.NewListDialog
 import com.azat_sabirov.shoppinglist.fragments.FragmentManager
 import com.azat_sabirov.shoppinglist.fragments.NoteFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +33,15 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 R.id.new_item -> {
-                    FragmentManager.currentFrag?.onClickNew()
+//                    FragmentManager.currentFrag?.onClickNew()
+                    NewListDialog.showDialog(this, this)
                 }
             }
             true
         }
+    }
+
+    override fun onClick(name: String) {
+        Log.d("MyLog", "Name: $name")
     }
 }
