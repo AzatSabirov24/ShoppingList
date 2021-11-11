@@ -20,6 +20,7 @@ import com.azat_sabirov.shoppinglist.entities.NoteItem
 import com.azat_sabirov.shoppinglist.fragments.NoteFragment
 import com.azat_sabirov.shoppinglist.utils.HtmlManager
 import com.azat_sabirov.shoppinglist.utils.MyTouchListener
+import com.azat_sabirov.shoppinglist.utils.TimeManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -145,7 +146,7 @@ class NewNoteActivity : AppCompatActivity() {
             null,
             titleEt.text.toString(),
             HtmlManager.toHtml(descriptionEt.text),
-            getCurrentTime(),
+            TimeManager.getCurrentTime(),
             ""
         )
     }
@@ -155,11 +156,6 @@ class NewNoteActivity : AppCompatActivity() {
             title = titleEt.text.toString(),
             content = HtmlManager.toHtml(descriptionEt.text)
         )
-    }
-
-    private fun getCurrentTime(): String {
-        val formatter = SimpleDateFormat("hh:mm:ss - dd/MM/yy", Locale.getDefault())
-        return formatter.format(Calendar.getInstance().time)
     }
 
     private fun openColorPicker() = with(binding) {

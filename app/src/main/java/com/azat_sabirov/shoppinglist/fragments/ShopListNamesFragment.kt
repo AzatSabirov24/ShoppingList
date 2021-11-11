@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import com.azat_sabirov.shoppinglist.activities.MainApp
 import com.azat_sabirov.shoppinglist.databinding.FragmentShopListNamesBinding
 import com.azat_sabirov.shoppinglist.db.MainViewModel
 import com.azat_sabirov.shoppinglist.dialogs.NewListDialog
+import com.azat_sabirov.shoppinglist.entities.ShoppingListName
+import com.azat_sabirov.shoppinglist.utils.TimeManager
 
 class ShopListNamesFragment : BaseFragment() {
     private lateinit var binding: FragmentShopListNamesBinding
@@ -22,7 +25,15 @@ class ShopListNamesFragment : BaseFragment() {
     override fun onClickNew() {
         NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener{
             override fun onClick(name: String) {
-                Log.d("MyLog", "Name: $name")
+                val shopListName = ShoppingListName(
+                    null,
+                    name,
+                    TimeManager.getCurrentTime(),
+                    0,
+                    0,
+                    ""
+                )
+                mainViewModel.insertShopListName(shopListName)
             }
 
         })
@@ -47,6 +58,12 @@ class ShopListNamesFragment : BaseFragment() {
 
     private fun initRcView() = with(binding) {
 
+    }
+
+    private fun observe(){
+        mainViewModel.allShoppingListNames.observe(viewLifecycleOwner, {
+
+        })
     }
 
 

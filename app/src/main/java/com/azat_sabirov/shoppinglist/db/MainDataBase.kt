@@ -7,13 +7,13 @@ import androidx.room.RoomDatabase
 import com.azat_sabirov.shoppinglist.entities.LibraryItem
 import com.azat_sabirov.shoppinglist.entities.NoteItem
 import com.azat_sabirov.shoppinglist.entities.ShoppingListItem
-import com.azat_sabirov.shoppinglist.entities.ShoppingListNames
+import com.azat_sabirov.shoppinglist.entities.ShoppingListName
 
 @Database(
     entities = [LibraryItem::class,
     NoteItem::class,
     ShoppingListItem::class,
-    ShoppingListNames::class], version = 1
+    ShoppingListName::class], version = 1
 )
 abstract class MainDataBase : RoomDatabase() {
     abstract fun getDao(): Dao
