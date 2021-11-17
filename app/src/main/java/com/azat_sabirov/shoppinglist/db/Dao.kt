@@ -1,12 +1,11 @@
 package com.azat_sabirov.shoppinglist.db
 
-import android.os.FileObserver.DELETE
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.azat_sabirov.shoppinglist.entities.NoteItem
-import com.azat_sabirov.shoppinglist.entities.ShoppingListName
+import com.azat_sabirov.shoppinglist.entities.ShopListNameItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,7 +14,7 @@ interface Dao {
     fun getAllNotes(): Flow<List<NoteItem>>
 
     @Query("SELECT * FROM shopping_list_names" )
-    fun getShoppingListNames(): Flow<List<ShoppingListName>>
+    fun getShoppingListNames(): Flow<List<ShopListNameItem>>
 
     @Query("DELETE FROM note_list WHERE id IS :id")
     suspend fun deleteNote(id: Int)
@@ -27,11 +26,11 @@ interface Dao {
     suspend fun insertNote(note: NoteItem)
 
     @Insert
-    suspend fun insertShopListName(name: ShoppingListName)
+    suspend fun insertShopListName(nameItem: ShopListNameItem)
 
     @Update
     suspend fun updateNote(note: NoteItem)
 
     @Update
-    suspend fun updateShopListName(shopListName: ShoppingListName)
+    suspend fun updateShopListName(shopListNameItem: ShopListNameItem)
 }
