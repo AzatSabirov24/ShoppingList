@@ -33,6 +33,10 @@ class ShopListNameAdapter(private val listener: Listener) :
                 listener.deleteItem(shopListNameItem.id!!)
             }
 
+            ibEdit.setOnClickListener {
+                listener.editItem(shopListNameItem)
+            }
+
             itemView.setOnClickListener {
 
             }
@@ -66,6 +70,7 @@ class ShopListNameAdapter(private val listener: Listener) :
 
     interface Listener {
         fun deleteItem(id: Int)
-        fun onClickItem(note: NoteItem)
+        fun editItem(shopListName: ShoppingListName)
+        fun onClickItem(shopListName: ShoppingListName)
     }
 }
