@@ -13,13 +13,15 @@ import com.azat_sabirov.shoppinglist.activities.MainApp
 import com.azat_sabirov.shoppinglist.databinding.FragmentShopListNamesBinding
 import com.azat_sabirov.shoppinglist.db.MainViewModel
 import com.azat_sabirov.shoppinglist.db.ShopListNameAdapter
+import com.azat_sabirov.shoppinglist.dialogs.DeleteDialog
 import com.azat_sabirov.shoppinglist.dialogs.NewListDialog
+import com.azat_sabirov.shoppinglist.entities.NoteItem
 import com.azat_sabirov.shoppinglist.entities.ShoppingListName
 import com.azat_sabirov.shoppinglist.utils.TimeManager
 
-class ShopListNamesFragment : BaseFragment() {
+class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
     private lateinit var binding: FragmentShopListNamesBinding
-    private val adapter = ShopListNameAdapter()
+    private val adapter = ShopListNameAdapter(this)
 
     private val mainViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
@@ -78,5 +80,16 @@ class ShopListNamesFragment : BaseFragment() {
         fun newInstance() = ShopListNamesFragment()
     }
 
+    override fun deleteItem(id: Int) {
+        DeleteDialog.showDialog(context as AppCompatActivity, object : DeleteDialog.Listener {
+            override fun onClick() {
+                mainViewModel.deleteShopListName(id)
+            }
+        })
+    }
+
+    override fun onClickItem(note: NoteItem) {
+        TODO("Not yet implemented")
+    }
 
 }
