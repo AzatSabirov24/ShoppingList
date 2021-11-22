@@ -19,4 +19,10 @@
     <string name="cancel_btn_text">Cancel</string>
     <string name="update">update</string>
     <string name="edit_note_title">Edit Note Title</string>
+    <string name="delete_list">Delete List</string>
+    <string name="clear_list">Clear List</string>
+    <string name="share_list">Share List</string>
+    <string name="new_item">New Item</string>
+    <string name="save_item">Save Item</string>
+    <string name="et_new_shop_item_hint">New Item</string>
 </resources>

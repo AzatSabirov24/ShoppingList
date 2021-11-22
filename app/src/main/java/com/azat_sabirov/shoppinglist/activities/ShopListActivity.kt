@@ -2,7 +2,9 @@ package com.azat_sabirov.shoppinglist.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.viewModels
+import com.azat_sabirov.shoppinglist.R
 import com.azat_sabirov.shoppinglist.databinding.ActivityShopListBinding
 import com.azat_sabirov.shoppinglist.db.MainViewModel
 import com.azat_sabirov.shoppinglist.entities.ShopListNameItem
@@ -24,6 +26,11 @@ class ShopListActivity : AppCompatActivity() {
     private fun init() {
         shopListNameItem = intent.getSerializableExtra(SHOP_LIST_NAME) as ShopListNameItem
         binding.tvTest.text = shopListNameItem?.name
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.shop_list_menu, menu)
+        return true
     }
 
     companion object {
