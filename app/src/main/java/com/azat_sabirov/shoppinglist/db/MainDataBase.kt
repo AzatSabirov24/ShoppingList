@@ -6,13 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.azat_sabirov.shoppinglist.entities.LibraryItem
 import com.azat_sabirov.shoppinglist.entities.NoteItem
-import com.azat_sabirov.shoppinglist.entities.ShoppingListItem
+import com.azat_sabirov.shoppinglist.entities.ShopListItem
 import com.azat_sabirov.shoppinglist.entities.ShopListNameItem
 
 @Database(
     entities = [LibraryItem::class,
     NoteItem::class,
-    ShoppingListItem::class,
+    ShopListItem::class,
     ShopListNameItem::class], version = 1
 )
 abstract class MainDataBase : RoomDatabase() {

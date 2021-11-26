@@ -2,6 +2,7 @@ package com.azat_sabirov.shoppinglist.db
 
 import androidx.lifecycle.*
 import com.azat_sabirov.shoppinglist.entities.NoteItem
+import com.azat_sabirov.shoppinglist.entities.ShopListItem
 import com.azat_sabirov.shoppinglist.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 
@@ -10,8 +11,16 @@ class MainViewModel(dataBase: MainDataBase) : ViewModel() {
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
     val allShopListNamesItem: LiveData<List<ShopListNameItem>> = dao.getShoppingListNames().asLiveData()
 
+    fun getAllItemsFromList(listId: Int): LiveData<List<ShopListItem>> {
+        return dao.getAllShopListItems(listId).asLiveData()
+    }
+
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
+    }
+
+    fun insertShopListItem(shopListItem: ShopListItem) = viewModelScope.launch {
+        dao.insertShopListItem(shopListItem)
     }
 
     fun deleteNote(id: Int) = viewModelScope.launch {
