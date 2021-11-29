@@ -3,6 +3,7 @@ package com.azat_sabirov.shoppinglist.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,7 @@ import com.azat_sabirov.shoppinglist.db.ShopListItemAdapter
 import com.azat_sabirov.shoppinglist.entities.ShopListItem
 import com.azat_sabirov.shoppinglist.entities.ShopListNameItem
 
-class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener{
+class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private lateinit var binding: ActivityShopListBinding
     private var shopListNameItem: ShopListNameItem? = null
     private lateinit var saveItem: MenuItem
@@ -72,12 +73,13 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener{
     private fun listItemObserver() {
         mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).observe(this, {
             adapter?.submitList(it)
+            binding.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         })
     }
 
     private fun initRcView() = with(binding) {
         rcView.layoutManager = LinearLayoutManager(this@ShopListActivity)
-       adapter = ShopListItemAdapter(this@ShopListActivity)
+        adapter = ShopListItemAdapter(this@ShopListActivity)
         rcView.adapter = adapter
     }
 
