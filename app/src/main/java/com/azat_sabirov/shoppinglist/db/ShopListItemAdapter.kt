@@ -1,15 +1,15 @@
 package com.azat_sabirov.shoppinglist.db
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.azat_sabirov.shoppinglist.R
-import com.azat_sabirov.shoppinglist.databinding.ListNameItemBinding
 import com.azat_sabirov.shoppinglist.databinding.ShopListItemBinding
-import com.azat_sabirov.shoppinglist.entities.ShopListNameItem
 import com.azat_sabirov.shoppinglist.entities.ShopListItem
 
 class ShopListItemAdapter(private val listener: Listener) :
@@ -31,12 +31,43 @@ class ShopListItemAdapter(private val listener: Listener) :
 
     class ItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun setItemData(shopListItem: ShopListItem, listener: Listener){
+        fun setItemData(shopListItem: ShopListItem, listener: Listener) {
             val binding = ShopListItemBinding.bind(view)
             binding.apply {
                 tvName.text = shopListItem.name
                 tvInfo.text = shopListItem.itemInfo
                 tvInfo.visibility = infoVisibility(shopListItem)
+                checkBox.isChecked = shopListItem.itemChecked
+                setPaintFlagAndColor(binding)
+                checkBox.setOnClickListener {
+                    listener.onClickItem(shopListItem.copy(itemChecked = checkBox.isChecked))
+                }
+            }
+        }
+
+        private fun setPaintFlagAndColor(binding: ShopListItemBinding) {
+            binding.apply {
+                if (checkBox.isChecked) {
+                    tvName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    tvInfo.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    tvName.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.grey_dark
+                        )
+                    )
+                    tvInfo.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.grey_dark
+                        )
+                    )
+                } else {
+                    tvName.paintFlags = Paint.ANTI_ALIAS_FLAG
+                    tvInfo.paintFlags = Paint.ANTI_ALIAS_FLAG
+                    tvName.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
+                    tvInfo.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
+                }
             }
         }
 
@@ -83,8 +114,6 @@ class ShopListItemAdapter(private val listener: Listener) :
     }
 
     interface Listener {
-        fun deleteItem(id: Int)
-        fun editItem(shopListNameItem: ShopListNameItem)
-        fun onClickItem(shopListNameItem: ShopListNameItem)
+        fun onClickItem(shopListItem: ShopListItem)
     }
 }
